@@ -1,59 +1,15 @@
 <template>
     <div class="icons">
-      <div class="icon" v-for="item of iconList" :key="item.id">
-        <div class="icon-img">
-          <img class="icon-img-content" :src="item.iconUrl" />
-        </div>
-        <p class="icon-desc">{{item.iconDesc}}</p>
-      </div>
-<!--      <div class="icon">-->
-<!--        <div class="icon-img">-->
-<!--          <img class="icon-img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png" />-->
-<!--        </div>-->
-<!--        <p class="icon-desc">热门景点</p>-->
-<!--      </div>-->
-<!--      <div class="icon">-->
-<!--        <div class="icon-img">-->
-<!--          <img class="icon-img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png" />-->
-<!--        </div>-->
-<!--        <p class="icon-desc">热门景点</p>-->
-<!--      </div>-->
-<!--      <div class="icon">-->
-<!--        <div class="icon-img">-->
-<!--          <img class="icon-img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png" />-->
-<!--        </div>-->
-<!--        <p class="icon-desc">热门景点</p>-->
-<!--      </div>-->
-<!--      <div class="icon">-->
-<!--        <div class="icon-img">-->
-<!--          <img class="icon-img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png" />-->
-<!--        </div>-->
-<!--        <p class="icon-desc">热门景点</p>-->
-<!--      </div>-->
-<!--      <div class="icon">-->
-<!--        <div class="icon-img">-->
-<!--          <img class="icon-img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png" />-->
-<!--        </div>-->
-<!--        <p class="icon-desc">热门景点</p>-->
-<!--      </div>-->
-<!--      <div class="icon">-->
-<!--        <div class="icon-img">-->
-<!--          <img class="icon-img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png" />-->
-<!--        </div>-->
-<!--        <p class="icon-desc">热门景点</p>-->
-<!--      </div>-->
-<!--      <div class="icon">-->
-<!--        <div class="icon-img">-->
-<!--          <img class="icon-img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png" />-->
-<!--        </div>-->
-<!--        <p class="icon-desc">热门景点</p>-->
-<!--      </div>-->
-<!--      <div class="icon">-->
-<!--        <div class="icon-img">-->
-<!--          <img class="icon-img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png" />-->
-<!--        </div>-->
-<!--        <p class="icon-desc">热门景点</p>-->
-<!--      </div>-->
+      <swiper :options="swiperOption">
+        <swiper-slide v-for="(page,index) of pages" :key="index">
+          <div class="icon" v-for="item of page" :key="item.id">
+            <div class="icon-img">
+              <img class="icon-img-content" :src="item.iconUrl" />
+            </div>
+            <p class="icon-desc">{{item.iconDesc}}</p>
+          </div>
+        </swiper-slide>
+      </swiper>
     </div>
 </template>
 
@@ -62,6 +18,10 @@ export default {
   name: 'HomeIcons',
   data: function () {
     return {
+      swiperOption: {
+        pagination: '.swiper-pagination',
+        loop: false
+      },
       iconList: [
         {
           id: '0001',
@@ -102,8 +62,26 @@ export default {
           id: '0008',
           iconUrl: 'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20193/184e261814a5d07a5d3d08cd29cf590d.png',
           iconDesc: '长隆度假区'
+        },
+        {
+          id: '0009',
+          iconUrl: 'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20193/c032ae43b15a3dac34b5e07bb0e46850.png',
+          iconDesc: '广州塔'
         }
       ]
+    }
+  },
+  computed: {
+    pages () {
+      const pages = []
+      this.iconList.forEach((item, index) => {
+        const page = Math.floor(index / 8)
+        if (!pages[page]) {
+          pages[page] = []
+        }
+        pages[page].push(item)
+      })
+      return pages
     }
   }
 }
@@ -111,10 +89,9 @@ export default {
 
 <style scoped lang="stylus">
   @import "~styles/varibles.styl"
-  .icons {
-    overflow: hidden;
-    height: 0;
-    padding-bottom: 50%;
+  .icons >>> .swiper-container {
+    height 0;
+    padding-bottom 50%
   }
   .icon {
     position: relative;
@@ -147,5 +124,8 @@ export default {
     line-height: .44rem;
     color: $darkTextColor;
     text-align center
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
   }
 </style>
