@@ -19,7 +19,6 @@ export default {
   data: function () {
     return {
       swiperOption: {
-        pagination: '.swiper-pagination',
         loop: false
       },
       iconList: [
@@ -89,6 +88,7 @@ export default {
 
 <style scoped lang="stylus">
   @import "~styles/varibles.styl"
+  @import "~styles/mixins.styl"
   .icons >>> .swiper-container {
     height 0;
     padding-bottom 50%
@@ -124,8 +124,6 @@ export default {
     line-height: .44rem;
     color: $darkTextColor;
     text-align center
-    overflow hidden
-    white-space nowrap
-    text-overflow ellipsis
+    ellipsis()
   }
 </style>
