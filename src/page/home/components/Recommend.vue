@@ -2,7 +2,7 @@
     <div>
       <div class="title">热销推荐</div>
       <ul>
-        <li class="item border-bottom" v-for="item of recommendList" :key="item.id">
+        <li class="item border-bottom" v-for="item of list" :key="item.id">
           <img class="item-img" :src="item.imgUrl" />
           <div class="item-info">
             <p class="item-title">{{item.title}}</p>
@@ -17,35 +17,8 @@
 <script>
 export default {
   name: 'HomeRecommend',
-  data: function () {
-    return {
-      recommendList: [
-        {
-          id: '0001',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/1709/41/411f234d79457081a3.img.jpg_200x200_ea02ef99.jpg',
-          title: '长隆野生动物世界',
-          desc: '感受现代与传统相融合的广州'
-        },
-        {
-          id: '0002',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/1707/88/889ae02b07140066a3.img.jpg_200x200_d3b1427c.jpg',
-          title: '长隆欢乐世界',
-          desc: '感受现代与传统相融合的广州'
-        },
-        {
-          id: '0003',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/1601/3d/3dc7f222d6bca6a790.img.jpg_200x200_e0bb3017.jpg',
-          title: '广州花城汇MAG环球魔幻世界',
-          desc: '感受现代与传统相融合的广州'
-        },
-        {
-          id: '0004',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/1605/56/568488164697e2f590.img.jpg_200x200_967bd139.jpg',
-          title: '越美冰雪大世界',
-          desc: '感受现代与传统相融合的广州'
-        }
-      ]
-    }
+  props: {
+    list: Array
   }
 }
 </script>
