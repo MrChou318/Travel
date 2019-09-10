@@ -3,8 +3,8 @@
       <home-header></home-header>
       <home-swiper></home-swiper>
       <home-icons></home-icons>
-      <home-weekend></home-weekend>
       <home-recommend></home-recommend>
+      <home-weekend></home-weekend>
     </div>
 </template>
 
