@@ -9,7 +9,8 @@
       <ul>
         <li class="search-item border-bottom"
             v-for="item of list"
-            :key="item.id">{{item.name}}</li>
+            :key="item.id"
+            @click="handleChangeCity(item.name)">{{item.name}}</li>
         <li class="search-item border-bottom" v-show="hasNoData">
           没有找到匹配数据
         </li>
@@ -20,6 +21,7 @@
 
 <script>
 import BScroll from 'better-scroll'
+import { mapMutations } from 'vuex'
 export default {
   name: 'Search',
   props: {
@@ -36,6 +38,21 @@ export default {
     hasNoData () {
       return !this.list.length
     }
+  },
+  methods: {
+    handleChangeCity (city) {
+      // 1.调用action
+      // this.$store.dispatch('changeCity', city)
+      // 2.调用mutations
+      // this.$store.commit('changeCity', city)
+      // 3.使用映射
+      this.changeCity(city)
+      this.$router.push('/')
+    },
+    // 有一个mutation叫做'changeCity'，然后我们把这个mutation映射到这个组件一个叫'changeCity'的方法里
+    ...mapMutations({
+      changeCity: 'changeCity'
+    })
   },
   watch: {
     keyword () {
